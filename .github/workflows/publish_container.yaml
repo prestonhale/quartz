@@ -1,7 +1,8 @@
 name: Build and push quartz image to Github Container Repo
 
 on:
-  push:
+  push: 
+    branches: ["v4"]
 
 env:
   REGISTRY: ghcr.io
