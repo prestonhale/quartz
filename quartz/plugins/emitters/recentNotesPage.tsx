@@ -14,6 +14,7 @@ import { defaultContentPageLayout, sharedPageComponents } from "../../../quartz.
 import { RecentNotes } from "../../components"
 import { write } from "./helpers"
 import DepGraph from "../../depgraph"
+import { QuartzPluginData } from "../vfile"
 
 // get all the dependencies for the markdown file
 // eg. images, scripts, stylesheets, transclusions
@@ -54,7 +55,9 @@ export const RecentNotesPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (us
   const opts: FullPageLayout = {
     ...sharedPageComponents,
     ...defaultContentPageLayout,
-    pageBody: RecentNotes(),
+    pageBody: RecentNotes({
+        filter: (f: QuartzPluginData) => {return f.frontmatter?.dontIncludeInRecent ? false : true}
+    }),
     ...userOpts,
   }
 
