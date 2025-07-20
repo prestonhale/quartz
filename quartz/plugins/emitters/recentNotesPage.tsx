@@ -13,7 +13,6 @@ import { FilePath, isRelativeURL, joinSegments, pathToRoot } from "../../util/pa
 import { defaultContentPageLayout, sharedPageComponents } from "../../../quartz.layout"
 import { RecentNotes } from "../../components"
 import { write } from "./helpers"
-import DepGraph from "../../depgraph"
 import { QuartzPluginData } from "../vfile"
 
 // get all the dependencies for the markdown file
