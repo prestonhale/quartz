@@ -4,6 +4,7 @@ import { QuartzComponentProps } from "../../components/types"
 import HeaderConstructor from "../../components/Header"
 import BodyConstructor from "../../components/Body"
 import { pageResources, renderPage } from "../../components/renderPage"
+import { RecentNotes } from "../../components/RecentNotes"
 import { FullPageLayout } from "../../cfg"
 import { pathToRoot } from "../../util/path"
 import { defaultContentPageLayout, sharedPageComponents } from "../../../quartz.layout"
@@ -83,8 +84,18 @@ export const ContentPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOp
           containsIndex = true
         }
 
-        // only process home page, non-tag pages, and non-index pages
-        if (slug.endsWith("/index") || slug.startsWith("tags/")) continue
+        // Don't use this emitter for tags
+        if (slug.startsWith("tags/")) continue
+
+        // For the index page, use RecentNotesPage as pageBody
+        if (slug.endsWith("/index")) {
+          // Use the index page layout
+          opts.pageBody = RecentNotes({
+            filter: (f) => f.frontmatter?.dontIncludeInRecent ? false : true,
+            limit: 20,
+          })
+        }
+
         yield processContent(ctx, tree, file.data, allFiles, opts, resources)
       }
 
