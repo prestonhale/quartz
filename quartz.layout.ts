@@ -1,4 +1,4 @@
-import { PageLayout, SharedLayout } from "./quartz/cfg"
+import { FullPageLayout, IndexPageLayout, PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
 // components shared across all pages
@@ -45,6 +45,15 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),
     Component.Backlinks(),
   ],
+}
+
+export const indexPageLayout: FullPageLayout = {
+  ...sharedPageComponents,
+  ...defaultContentPageLayout,
+  pageBody: Component.RecentNotes({
+    filter: (f) => f.frontmatter?.dontIncludeInRecent ? false : true,
+    limit: 20
+  })
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
