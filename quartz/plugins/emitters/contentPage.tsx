@@ -88,7 +88,7 @@ export const ContentPage: QuartzEmitterPlugin<Partial<FullPageLayout>> = (userOp
         if (slug.startsWith("tags/")) continue
 
         // For the index page, use RecentNotesPage as pageBody
-        if (slug.endsWith("/index")) {
+        if (slug.endsWith("index")) {
           // Use the index page layout
           opts.pageBody = RecentNotes({
             filter: (f) => f.frontmatter?.dontIncludeInRecent ? false : true,
